@@ -22,9 +22,8 @@
    availability_zone = data.aws_availability_zones.available.names[count.index]
    cidr_block        = "10.0.${count.index}.0/24"
    vpc_id            = aws_vpc.demo-vpc.id
-   #if cidr_block
-   #ipv6_cidr_block = "${cidrsubnet(aws_vpc.demo-vpc.ipv6_cidr_block, 8, 0)}"
-   #assign_ipv6_address_on_creation = true
+   ipv6_cidr_block = cidrsubnet(aws_vpc.demo-vpc.ipv6_cidr_block,8,count.index)
+   assign_ipv6_address_on_creation = true
    tags = {
      "Name"	= "demo-subnet${count.index}"
    }
@@ -51,7 +50,7 @@
    }
    route {
      ipv6_cidr_block = "::/0"
-     gateway_id = aws_vpn_gateway.demo-vpn_gw.id
+     gateway_id = aws_internet_gateway.demo-igw.id
    }
 
    tags = {
