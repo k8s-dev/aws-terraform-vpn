@@ -23,7 +23,6 @@
    cidr_block        = "10.0.${count.index}.0/24"
    vpc_id            = aws_vpc.demo-vpc.id
    ipv6_cidr_block = cidrsubnet(aws_vpc.demo-vpc.ipv6_cidr_block,8,count.index)
-   assign_ipv6_address_on_creation = true
    tags = {
      "Name"	= "demo-subnet${count.index}"
    }
